@@ -1,0 +1,51 @@
+import math
+
+def distancia_puntos(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+def calcular_lados(x1, y1, x2, y2, x3, y3):
+    lado1 = distancia_puntos(x1, y1, x2, y2)
+    lado2 = distancia_puntos(x2, y2, x3, y3)
+    lado3 = distancia_puntos(x3, y3, x1, y1)
+    return lado1, lado2, lado3
+
+def calcular_perimetro(lado1, lado2, lado3):
+    return lado1 + lado2 + lado3
+
+def calcular_area(lado1, lado2, lado3):
+    s = (lado1 + lado2 + lado3) / 2
+    return math.sqrt(s * (s - lado1) * (s - lado2) * (s - lado3))
+
+def calcular_angulos(lado1, lado2, lado3):
+    angulo1 = math.degrees(math.acos((lado2**2 + lado3**2 - lado1**2) / (2 * lado2 * lado3)))
+    angulo2 = math.degrees(math.acos((lado1**2 + lado3**2 - lado2**2) / (2 * lado1 * lado3)))
+    angulo3 = 180 - angulo1 - angulo2
+    return angulo1, angulo2, angulo3
+
+def determinar_tipo(lado1, lado2, lado3):
+    if lado1 == lado2 == lado3:
+        return "Equilátero"
+    elif lado1 == lado2 or lado1 == lado3 or lado2 == lado3:
+        return "Isósceles"
+    else:
+        return "Escaleno"
+x1, y1 = map(float, input("Coordenadas del primer vértice (x y): ").split())
+x2, y2 = map(float, input("Coordenadas del segundo vértice (x y): ").split())
+x3, y3 = map(float, input("Coordenadas del tercer vértice (x y): ").split())
+
+lado1, lado2, lado3 = calcular_lados(x1, y1, x2, y2, x3, y3)
+
+perimetro = calcular_perimetro(lado1, lado2, lado3)
+
+area = calcular_area(lado1, lado2, lado3)
+
+angulo1, angulo2, angulo3 = calcular_angulos(lado1, lado2, lado3)
+
+tipo = determinar_tipo(lado1, lado2, lado3)
+
+print("Tipo de triángulo:", tipo)
+print("Perímetro:", perimetro)
+print("Área:", area)
+print("Ángulo 1:", angulo1)
+print("Ángulo 2:", angulo2)
+print("Ángulo 3:", angulo3)
